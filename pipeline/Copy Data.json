@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy Data1",
+				"description": "First Time ADF",
 				"type": "Copy",
 				"policy": {
 					"timeout": "7.00:00:00",
