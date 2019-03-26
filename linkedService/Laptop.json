@@ -1,0 +1,15 @@
+{
+	"name": "Laptop",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=434-C191\\IN2017;initial catalog=JBS_DB;user id=jvivek2k1",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxYzE0Y2EzNi0zM2Y1LTRkOWYtOTY3MC03ZWNmNGRmN2I2NDkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "JB-Laptop-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "JB_SOURCE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Laptop",
+			"type": "LinkedServiceReference"
+		},
+		"type": "SqlServerTable",
+		"structure": [
+			{
+				"name": "FirstName",
+				"type": "String"
+			},
+			{
+				"name": "MiddleName",
+				"type": "String"
+			},
+			{
+				"name": "LastName",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[Emp]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
