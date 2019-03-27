@@ -62,15 +62,9 @@
 							"typeProperties": {
 								"source": {
 									"type": "SqlSource",
-									"sqlReaderStoredProcedureName": "[dbo].[JB_get_Data]",
-									"storedProcedureParameters": {
-										"TableName": {
-											"type": "String",
-											"value": {
-												"value": "@Item().SourceTable",
-												"type": "Expression"
-											}
-										}
+									"sqlReaderQuery": {
+										"value": "@item().SourceTable",
+										"type": "Expression"
 									}
 								},
 								"sink": {
