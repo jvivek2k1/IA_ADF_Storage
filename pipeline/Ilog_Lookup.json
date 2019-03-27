@@ -13,14 +13,21 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
+				"userProperties": [
+					{
+						"name": ""
+					}
+				],
 				"typeProperties": {
 					"source": {
-						"type": "SqlSource"
+						"type": "SqlSource",
+						"sqlReaderQuery": "SELECT [iLogID]\n      ,[sSourceSchemaName]+'.'+[sSourceTableName] as SourceTable\n      ,[sDestinationSchemaName]+'.'+[sDestinationTableName] as DestinationTable\n  FROM [ELT].[TableLoadDetails]"
 					},
 					"dataset": {
 						"referenceName": "Azure_TableLoadDetails",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
