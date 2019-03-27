@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDW'"
 		},
-		"Laptop_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'Laptop'"
-		},
 		"sqlserver_UAT_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sqlserver_UAT'"
@@ -55,9 +51,6 @@
 					},
 					"AzureSqlDW_connectionString": {
 						"value": "[parameters('AzureSqlDW_connectionString')]"
-					},
-					"Laptop_connectionString": {
-						"value": "[parameters('Laptop_connectionString')]"
 					},
 					"sqlserver_UAT_connectionString": {
 						"value": "[parameters('sqlserver_UAT_connectionString')]"

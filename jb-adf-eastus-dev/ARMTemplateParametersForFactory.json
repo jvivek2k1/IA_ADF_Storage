@@ -11,9 +11,6 @@
 		"AzureSqlDW_connectionString": {
 			"value": ""
 		},
-		"Laptop_connectionString": {
-			"value": ""
-		},
 		"sqlserver_UAT_connectionString": {
 			"value": ""
 		}
