@@ -1,6 +1,7 @@
 {
 	"name": "Copy Data",
 	"properties": {
+		"description": "Cool ADF",
 		"activities": [
 			{
 				"name": "Copy Data1",
