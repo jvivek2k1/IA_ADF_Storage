@@ -74,6 +74,9 @@
 						]
 					}
 				],
+				"folder": {
+					"name": "Sample"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
