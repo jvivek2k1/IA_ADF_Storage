@@ -1,6 +1,29 @@
 {
 	"name": "Ilog_Lookup",
 	"properties": {
+		"activities": [
+			{
+				"name": "TableLoadDetails_Lookup",
+				"description": "Check [TableLoadDetails] to look for tables that should be loaded.",
+				"type": "Lookup",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"source": {
+						"type": "SqlSource"
+					},
+					"dataset": {
+						"referenceName": "Azure_TableLoadDetails",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
 		"folder": {
 			"name": "IA"
 		}
