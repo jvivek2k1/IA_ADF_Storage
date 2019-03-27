@@ -61,13 +61,33 @@
 							},
 							"typeProperties": {
 								"source": {
-									"type": "SqlSource"
+									"type": "SqlSource",
+									"sqlReaderStoredProcedureName": "[dbo].[JB_get_Data]",
+									"storedProcedureParameters": {
+										"TableName": {
+											"type": "String",
+											"value": {
+												"value": "@Item().SourceTable",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								"sink": {
+									"type": "SqlSink",
+									"writeBatchSize": 10000
 								},
 								"enableStaging": false
 							},
 							"inputs": [
 								{
 									"referenceName": "JB_On_Prem_SQL",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Load_Data",
 									"type": "DatasetReference"
 								}
 							]
