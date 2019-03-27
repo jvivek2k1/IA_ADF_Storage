@@ -1,0 +1,10 @@
+{
+	"name": "JB_On_Prem_SQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Laptop",
+			"type": "LinkedServiceReference"
+		},
+		"type": "SqlServerTable"
+	}
+}

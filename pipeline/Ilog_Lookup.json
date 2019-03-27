@@ -29,6 +29,51 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "TableLoadDetails_Foreach",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "TableLoadDetails_Lookup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('TableLoadDetails_Lookup').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"batchCount": 3,
+					"activities": [
+						{
+							"name": "Copy_Data_from_Source_to_destination",
+							"type": "Copy",
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 3,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"typeProperties": {
+								"source": {
+									"type": "SqlSource"
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "JB_On_Prem_SQL",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
 			}
 		],
 		"folder": {
