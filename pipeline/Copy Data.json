@@ -45,7 +45,10 @@
 					}
 				]
 			}
-		]
+		],
+		"folder": {
+			"name": "Sample"
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
