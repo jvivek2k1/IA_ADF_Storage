@@ -7,13 +7,21 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "jb-adf-eastus-dev"
 		},
-		"AzureSQLDB_connectionString": {
+		"AzureBlobStorage_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB'"
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
+		},
+		"AzureSqlDW_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDW'"
 		},
 		"Laptop_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Laptop'"
+		},
+		"sqlserver_UAT_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sqlserver_UAT'"
 		}
 	},
 	"variables": {
@@ -21,14 +29,27 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSQLDB')]",
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "AzureSqlDatabase",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('AzureSQLDB_connectionString')]"
+					"connectionString": "[parameters('AzureBlobStorage_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDW')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDW_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -42,64 +63,6 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure_TableLoadDetails')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSQLDB",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"typeProperties": {
-					"tableName": "[concat('[', 'ELT].[TableLoadDetails]')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSQLDB')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/JB_Azure')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSQLDB",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"structure": [
-					{
-						"name": "FirstName",
-						"type": "String",
-						"precision": 255,
-						"scale": 255
-					},
-					{
-						"name": "MiddleName",
-						"type": "String",
-						"precision": 255,
-						"scale": 255
-					},
-					{
-						"name": "LastName",
-						"type": "String",
-						"precision": 255,
-						"scale": 255
-					}
-				],
-				"typeProperties": {
-					"tableName": "[concat('[', 'dbo].[Emp]')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSQLDB')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Laptop')]",
@@ -121,146 +84,22 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Ilog_Lookup')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/sqlserver_UAT')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "TableLoadDetails_Lookup",
-						"description": "Check [TableLoadDetails] to look for tables that should be loaded.",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 3,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": ""
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "SqlSource",
-								"sqlReaderQuery": "SELECT [iLogID]\n      ,[sSourceSchemaName]+'.'+[sSourceTableName] as SourceTable\n      ,[sDestinationSchemaName]+'.'+[sDestinationTableName] as DestinationTable\n  FROM [ELT].[TableLoadDetails]"
-							},
-							"dataset": {
-								"referenceName": "Azure_TableLoadDetails",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
-					}
-				],
-				"folder": {
-					"name": "IA"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Azure_TableLoadDetails')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/JB_SOURCE')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Laptop",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "SqlServerTable",
-				"structure": [
-					{
-						"name": "FirstName",
-						"type": "String"
-					},
-					{
-						"name": "MiddleName",
-						"type": "String"
-					},
-					{
-						"name": "LastName",
-						"type": "String"
-					}
-				],
+				"type": "SqlServer",
 				"typeProperties": {
-					"tableName": "[concat('[', 'dbo].[Emp]')]"
+					"connectionString": "[parameters('sqlserver_UAT_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "JB-Laptop-IR",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Laptop')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Copy Data')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Demo",
-				"activities": [
-					{
-						"name": "Copy Data1",
-						"description": "First Time ADF",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 3,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlSource"
-							},
-							"sink": {
-								"type": "SqlSink",
-								"writeBatchSize": 10000
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"columnMappings": {
-									"FirstName": "FirstName",
-									"MiddleName": "MiddleName",
-									"LastName": "LastName"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "JB_SOURCE",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "JB_Azure",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"folder": {
-					"name": "Sample"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/JB_SOURCE')]",
-				"[concat(variables('factoryId'), '/datasets/JB_Azure')]"
+				"[concat(variables('factoryId'), '/integrationRuntimes/JB-Laptop-IR')]"
 			]
 		}
 	]

@@ -5,10 +5,16 @@
 		"factoryName": {
 			"value": "jb-adf-eastus-dev"
 		},
-		"AzureSQLDB_connectionString": {
+		"AzureBlobStorage_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDW_connectionString": {
 			"value": ""
 		},
 		"Laptop_connectionString": {
+			"value": ""
+		},
+		"sqlserver_UAT_connectionString": {
 			"value": ""
 		},
 		"containerUri": {

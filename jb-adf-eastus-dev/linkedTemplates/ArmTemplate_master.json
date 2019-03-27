@@ -7,13 +7,21 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "jb-adf-eastus-dev"
 		},
-		"AzureSQLDB_connectionString": {
+		"AzureBlobStorage_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSQLDB'"
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage'"
+		},
+		"AzureSqlDW_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDW'"
 		},
 		"Laptop_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Laptop'"
+		},
+		"sqlserver_UAT_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sqlserver_UAT'"
 		},
 		"containerUri": {
 			"type": "string",
@@ -42,11 +50,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureSQLDB_connectionString": {
-						"value": "[parameters('AzureSQLDB_connectionString')]"
+					"AzureBlobStorage_connectionString": {
+						"value": "[parameters('AzureBlobStorage_connectionString')]"
+					},
+					"AzureSqlDW_connectionString": {
+						"value": "[parameters('AzureSqlDW_connectionString')]"
 					},
 					"Laptop_connectionString": {
 						"value": "[parameters('Laptop_connectionString')]"
+					},
+					"sqlserver_UAT_connectionString": {
+						"value": "[parameters('sqlserver_UAT_connectionString')]"
 					}
 				}
 			},
